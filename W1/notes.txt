@@ -1,0 +1,26 @@
+Friday 15.11.2024
+ERD
+    Weak entity:
+        an entity which cannot exist on its own.
+        EXAMPLE:
+            Student and Academic 
+    
+    Attributes:
+        Composite attribute:
+            First Name          Last Name
+                \                   /
+                   \             /
+                        Name
+        Multi-value:
+            Student Phone Numbers
+
+    Relations:
+        - Relation
+        - Identifying Relation
+
+    Cardinality:
+        One-to-One
+        One-to-Many
+        Many-to-One
+        Many-to-Many
+

@@ -1,0 +1,4 @@
+Task1:
+    b)
+    We chose username for the primery key of the user. Alternativly primary key can be the email, or have additional field id.
+

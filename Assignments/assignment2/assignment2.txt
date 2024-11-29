@@ -1,0 +1,82 @@
+#1
+SELECT t.primary_title FROM titles t WHERE start_year=1999;
+
+#2
+SELECT p.full_name FROM persons p WHERE p.birth_year=1970;
+
+#3
+SELECT DISTINCT c.job_category FROM cast_info c;
+
+#4
+SELECT DISTINCT start_year
+FROM titles
+WHERE title_type = 'tvEpisode'
+AND (primary_title LIKE '%Dr.%' OR original_title LIKE '%Dr.%');
+
+#5
+SELECT p.full_name || ', ' || ci.job_category AS Result
+FROM (titles t JOIN cast_info ci ON t.title_id=ci.title_id) JOIN persons p ON ci.person_id = p.person_id
+WHERE t.primary_title='The Matrix'
+ORDER BY p.full_name;
+
+#6
+SELECT p.profession, COUNT(p.person_id) AS numberOfEmployees
+FROM persons_professions p
+GROUP BY p.profession
+ORDER BY numberOfEmployees DESC
+LIMIT 5;
+
+#7
+SELECT DISTINCT character_name
+FROM title_person_character tpc JOIN persons p ON tpc.person_id = p.person_id
+WHERE full_name = 'Jason Momoa';
+
+#8
+SELECT primary_title, avg_rating
+FROM titles t JOIN ratings r ON t.title_id = r.title_id
+WHERE title_type = 'movie'
+ORDER BY avg_rating DESC;
+
+#9
+SELECT COUNT(title_id) numberOfMovies
+FROM titles
+WHERE title_type = 'movie' AND start_year=2021
+GROUP BY title_type;
+
+#10
+SELECT COUNT(title_id) numberOfMovies
+FROM titles
+WHERE start_year BETWEEN 1990 AND 1999
+
+#11
+SELECT COUNT(title_id) numberOfMovies
+FROM titles
+WHERE (start_year BETWEEN 2000 AND 2009) AND title_type='movie'
+
+#12
+SELECT primary_title
+FROM titles t JOIN episodes e ON t.title_id=e.series_id
+WHERE title_type='tvSeries'
+GROUP BY title_id
+HAVING COUNT(episode_id) >= 30
+ORDER BY primary_title;
+
+#13
+SELECT title_type || ', ' || COUNT(title_id) || ';' AS result
+FROM titles
+WHERE start_year=2021
+GROUP BY title_type
+
+#14
+SELECT full_name, AVG(r.avg_rating)
+FROM (((titles t
+JOIN title_person_character tpc ON  t.title_id = tpc.title_id)
+JOIN persons p ON tpc.person_id = p.person_id)
+JOIN ratings r ON r.title_id = t.title_id)
+JOIN persons_professions pp ON p.person_id = pp.person_id 
+WHERE (pp.profession = 'actor' OR pp.profession = 'actress')
+AND title_type = 'movie'
+GROUP BY p.person_id
+HAVING COUNT(t.title_id) >= 10
+ORDER BY AVG(r.avg_rating) DESC
+LIMIT 3;
