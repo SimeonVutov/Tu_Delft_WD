@@ -1,0 +1,7 @@
+ConstructionCompany(_name, type, yearEstablished)
+Station(_(name, city), constructionCost, constructionCompany -> ConstructionCompany(name))
+TrainStation(_(name, city) -> Station(name, city))
+BusStation(_(name, city) -> Station(name, city))
+Bus(_((name, city) -> BusStation(name, city), id), model)
+TramStation(_(name, city) -> Station(name, city))
+Route(_start_station -> TramStation(name, city), _end_station -> TramStation(name, city), month, dailyFrequency)

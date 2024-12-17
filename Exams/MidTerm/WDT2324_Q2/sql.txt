@@ -1,0 +1,33 @@
+1.
+SELECT at.type_name as airplane_type, AVG(total_no_of_seat) as average_number_of_seats
+FROM AirplaneType at JOIN Airplane a ON at.type_name=a.airplane_type
+GROUP BY at.type_name;
+
+2.
+SELECT flight_no
+FROM FlightLeg fl
+GROUP BY flight_no
+HAVING MIN(TIME-DIFF(scheduled_arr_time, scheduled_dep_time)) > "6:00:00";
+
+3.
+DISTINCT?
+SELECT a.airport_code, a.name, COUNT(f.airport_dep) as total_departures
+FROM Airport a JOIN FlighLeg f ON a.airport_code=f.airport_dep
+GROUP BY a.airport_code, a.name
+ORDER BY total_departures;
+
+4.
+
+5.
+SELECT A.city
+FROM Airport A
+EXCEPT
+
+((SELECT A.city
+FROM FlighLeg F
+    JOIN Airport AD ON F.airport_dep=AD.airport_code)
+UNION
+SELECT A.city
+FROM FlighLeg F
+    JOIN Airport AA ON F.airport_arr=AA.airport_code)
+)

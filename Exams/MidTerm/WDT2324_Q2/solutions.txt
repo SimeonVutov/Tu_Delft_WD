@@ -1,0 +1,14 @@
+2.
+Adopter(_(name, address), phone number)
+Staff(_id, name)
+Volunteer(_id -> Staff(id), availability)
+Employee(_id -> Staff(id), position)
+AdoptionCenter(_id, name, address)
+WorksIn(_(adoptionCenter, staff) -> (AdoptionCenter(id), Staff(id)))
+Animal(_(adoptionCenter -> AdoptionCenter(id), id), name, age, species, rescueDate, adoptedBy -> Adopter(name))
+
+3.
+3.1
+a) AC
+b) ABC
+c) AC

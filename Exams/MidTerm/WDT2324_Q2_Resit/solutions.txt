@@ -1,0 +1,24 @@
+3.
+a) A
+b) AC
+c) ABD
+
+4.
+4.1
+SELECT is_vegeterian, AVG(calories_per_unit) as average_calories_per_unit
+FROM Ingredients
+GROUP BY is_vegeterian;
+
+4.2
+SELECT recipe_id, recipe_name, SUM(units*calories_per_unit)
+FROM Recipe r JOIN Recipe_ingredient ri ON r.id=ri.recipe_id
+JOIN Ingredients i ON ri.ingredient_id=i.id
+WHERE difficulty='Easy'
+GROUP BY recipe_id, recipe_name
+
+4.3
+SELECT ingredient_id, ingredient_name
+FROM Ingredients i
+    JOIN Recipe_ingredient ri ON i.id=ri.ingredient_id
+GROUP BY ingredient_id, ingredient_name
+HAVING COUNT(*) BETWEEN 10 AND 15

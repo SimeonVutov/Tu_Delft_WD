@@ -1,0 +1,45 @@
+1.
+SELECT s.name, SUM(pc.count) as passenger_count
+FROM Station s JOIN PassengerCount pc ON s.s_id=pc.s_id
+WHERE pc.year = 2021
+GROUP BY s.name
+# Correct
+
+2.
+SELECT DISTINCT s_start.name as Start_station, s_end as End_station
+FROM TrainLine tl
+    JOIN Station s_start ON tl.start=s_start.s_id
+    JOIN Station s_end ON tl.end=s_end.s_id
+    JOIN Stop st ON tl.tl_id=st.tl_id
+    JOIN Station stop_s ON st.station=stop_s.s_id
+WHERE st.stop_nr = 5 AND stop_s.city;
+# Checked/ was almost correct
+
+3.
+SELECT f.name as facility_name
+FROM Station s
+    JOIN st2fac s2f ON s.s_id=s2f.s_id
+    JOIN Facilities f ON s2f.f_id=f.f_id
+GROUP BY f.name, f_id # (Not sure)
+HAVING (MAX(s2f.capacity) - MIN(s2f.capacity)) <= 10;
+
+4.
+SELECT tl.tl_id, COUNT (DISTINCT s.station)
+FROM TrainLine tl JOIN Stop s ON tl.tl_id=s.tl_id
+WHERE tl.start = tl.end
+GROUP BY tl.tl_id
+
+5.
+SELECT AVG(pc.count) as avg_passenger_count
+FROM PassengerCount pc
+    JOIN Station s ON pc.s_id=s.s_id
+WHERE s.name='Delft Station' AND pc.month=3 AND (pc.dayOfWeek BETWEEN 5 AND 6) AND pc.year=2022
+GROUP BY pc.month, pc.year;
+
+6.
+SELECT s.city
+FROM Station s
+    JOIN st2fac s2t ON s.s_id=s2t.s_id
+    JOIN Facilities f ON s2t.f_id=f.f_id
+GROUP BY s.city
+HAVING COUNT(DISTINCT s.s_id) >= 2 AND COUNT(DISTINCT f.name) < 5;
